@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+		body, h1, h2, h3, p, ul, ol, li
+		{
+			margin: 0;
+			padding: 0;
+		}
+
+		html, body {
+			width: 100%;
+			font: 12px/1.5 "Microsoft YaHei", arial, SimSun, 宋体;
+		}
+		h1, h2, h3, h4, h5, h6 { font-size: 100%; }
+		em, var, i{ font-style: normal; }
+
+		/** 重置列表元素 **/
+		ul, ol { list-style: none; }
+
+		/** 重置文本格式元素 **/
+		a { text-decoration: none; color:#424e67;}
+		a:hover { text-decoration: none; }
+		/* 清除浮动 */
+		.clear:after{
+			content: '';
+			display: block;
+			height: 0;
+			clear: both;
+		}
+		.clear{
+			zoom: 1;
+			clear: both;
+		}
+		body{
+			background: #fff;
+		}
+
+		.container{
+			max-width: 1200px;
+			height: 700px;
+			margin:0 auto;
+			background: url(images/syxy/bg.png) no-repeat;
+			position: relative;
+			background-size: cover;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.wrap {
+			width: 400px;
+			position:relative;
+		}
+		.list{
+			position:relative;
+			width: 400px;
+			height: 300px;
+		}
+		.list li{
+			margin-bottom: 10px;
+			height: 52px;
+			width: 400px;
+			border-radius: 5px;
+			background: #ffffff;
+			overflow: hidden;
+		}
+		.list span{
+			float: left;
+			margin-left: 25px;
+			height: 20px;
+			line-height: 20px;
+			margin-top: 17px;
+			font-weight: bold;
+		}
+		.list span:before{
+			content: '';
+			width: 3px;
+			height: 20px;
+			background: #fd8e9f;
+			float: left;
+			margin-right: 12px;
+		}
+		.list .btn{
+			width: 120px;
+			float: right;
+			margin-top: 12px;
+		}
+		.btn a{
+			width: 48px;
+			height: 26px;
+			line-height: 26px;
+			text-align: center;
+			border-radius: 2px;
+			border:1px solid #fd8e9f;
+			float: left;
+			margin-right:10px;
+			color: #fd8e9f;
+		}
+		.btn a:hover{
+			background: #fd8e9f;
+			color: #fff;
+		}
+
+
+	</style>
+</head>
+<body>
+<section class="container">
+	<div class="wrap">
+		<ul class="list">
+			<li>
+				<span>jQuery</span>
+				<div class="btn">
+					<a href="javascript:;"  class="up">上移</a>
+					<a href="javascript:;" class="down">下移</a>
+				</div>
+			</li>
+			<li>
+				<span>AJAX</span>
+				<div class="btn">
+					<a href="javascript:;"  class="up">上移</a>
+					<a href="javascript:;" class="down">下移</a>
+				</div>
+			</li>
+			<li>
+				<span>JS基础-2</span>
+				<div class="btn">
+					<a href="javascript:;"  class="up">上移</a>
+					<a href="javascript:;" class="down">下移</a>
+				</div>
+			</li>
+			<li>
+				<span>移动端实战</span>
+				<div class="btn">
+					<a href="javascript:;"  class="up">上移</a>
+					<a href="javascript:;" class="down">下移</a>
+				</div>
+			</li>
+			<li>
+				<span>canvas游戏</span>
+				<div class="btn">
+					<a href="javascript:;"  class="up">上移</a>
+					<a href="javascript:;" class="down">下移</a>
+				</div>
+			</li>
+		</ul>
+	</div>
+	</div>
+</section>
+<script src="js/tools.js"></script>
+<script>
+	var list = document.querySelector('.list');
+	/*var lis = list.querySelectorAll('li');*/
+	var lis = list.getElementsByTagName('li');
+	var arr = [];//  记录一下li转换前的位置
+	for(var i = 0;i<lis.length;i++){
+	    arr.push({
+			top:lis[i].offsetTop,  //  记录每一个li的 top值
+			left:lis[i].offsetLeft  //   记录每一个li的  left值
+		})
+	}
+	//  换绝对定位
+    for(var i = 0;i<lis.length;i++){
+	    lis[i].style.position = 'absolute';
+        lis[i].style.marginBottom = '0';
+        lis[i].style.top = arr[i].top+'px';
+        lis[i].style.left = arr[i].left+'px';
+    }
+	for(var i = 0;i<lis.length;i++) {
+        var downBtn = lis[i].querySelectorAll('.down');
+        var upBtn = lis[i].querySelectorAll('.up');
+        //  给所有的下移添加点击事件
+        for (var j = 0; j < downBtn.length; j++) {
+            downBtn[j].onclick = function () {
+                var curLi = this.parentNode.parentNode;  //  找到当前的父级的父级
+                var nextLi = curLi.nextElementSibling; // 找到他父级的父级下一个兄弟节点
+				if(nextLi){ //  判断是否有下一个子节点
+                    animate(curLi,{top:nextLi.offsetTop},300,'linear');
+                    animate(nextLi,{top:curLi.offsetTop},300,'linear');
+                    list.insertBefore(nextLi, curLi);  //  把一个节点插入到另一个节点之前
+				}else {  //  没有的话，我让当前的li  插入到ul的第一个节点前
+                    animate(curLi,{top:0},300,'linear');
+                    for(var i = 0;i<lis.length-1;i++){
+                        animate(lis[i],{top:lis[i+1].offsetTop},300,'linear');
+					}
+                    list.insertBefore(curLi, list.firstElementChild);
+				}
+            }
+        }
+        //  给所有的上移添加点击事件
+        for(var j = 0;j<upBtn.length;j++){
+            upBtn[j].onclick = function () {
+                var curLi = this.parentNode.parentNode;  //  找到当前的父级的父级
+                var prevLi = curLi.previousElementSibling; // 找到他父级的父级上一个兄弟节点
+				if(prevLi){
+                    animate(curLi,{top:prevLi.offsetTop},300,'linear');
+                    animate(prevLi,{top:curLi.offsetTop},300,'linear');
+                    list.insertBefore(curLi,prevLi);  //  把一个节点插入到另一个节点之前
+				}else {
+                    animate(curLi,{top:list.lastElementChild.offsetTop},300,'linear');
+                    for(var i = 1; i < lis.length; i++){
+                        animate(lis[i],{top:lis[i-1].offsetTop},300,'linear');
+                    }
+                    list.appendChild(curLi);
+				}
+            }
+        }
+    }
+</script>
+</body>
+</html>

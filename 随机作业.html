@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>随机作业</title>
+
+    <style>
+
+        *{margin: 0;padding: 0;box-sizing: border-box;}
+        :before{transition: .5s;}
+        a{text-decoration: none;}
+        ul,ol{list-style: none;}
+        em{font-style: normal;}
+        button{border: none;font-size: 16px;cursor: pointer;}
+        .box{background: linear-gradient(to bottom,#74a1cf,#a39ce2);overflow: hidden;padding-top: 50px;height: 759px;}
+        .content{width: 800px;height: 650px;background: linear-gradient(to bottom,#a39ce2,#74a1cf);margin: 0 auto;box-shadow: 0 0 10px #fff;}
+        .conTit{color: #fff;font-size: 30px;text-align: center;line-height: 100px;}
+        .mthBox{width: 500px;height: 80px;line-height: 80px;background: #fff;text-align: center;margin: 0 auto;font-size: 30px;font-weight: bold;margin-bottom: 30px;border-radius: 5px;}
+        .btnBox{text-align: center;padding-top: 50px;}
+        .btnBox a{display: inline-block;width: 200px;height: 50px;line-height: 50px;background: #fff;box-shadow: 0 0 10px #6a54a0;text-align: center;color: #74a1cf;font-size: 22px;border-radius: 5px;}
+        .thumbnail{width: 350px;height: 280px;box-shadow: 0 0 10px #000;margin: 0 auto;background: linear-gradient(to bottom,#74a1cf,#a39ce2);border-radius: 5px;overflow: hidden;}
+        .thumbnail img{width: 350px;height: 280px;}
+    </style>
+
+</head>
+<body>
+
+<div class="box">
+    <div class="content">
+        <h3 class="conTit">随机作业</h3>
+        <div class="mthBox"></div>
+        <div class="thumbnail"></div>
+        <div class="btnBox">
+            <a class="start" href="javascript:;">开始</a>
+        </div>
+    </div>
+</div>
+
+<script>
+    var mthArr = [
+        {
+            title:'带缩略图轮播',
+            img:'images/zysj/002.gif'
+        },
+        {
+            title:'商品筛选',
+            img:'images/zysj/spsx.gif'
+        },
+        {
+            title:'好友列表',
+            img:'images/zysj/qqhy.gif'
+        },
+        {
+            title:'12-28模拟手机发送短信',
+            img:'images/zysj/83.gif'
+        },
+        {
+            title:'12-29图片切换',
+            img:'images/zysj/84.gif'
+        },
+        {
+            title:'1-3九九乘法表',
+            img:'images/zysj/99cf.png'
+        },
+        {
+            title:'1-4生成V型，变幻方向',
+            img:'images/zysj/v.gif'
+        },
+        {
+            title:'1-5星星评分',
+            img:'images/zysj/79.gif'
+        },
+        {
+            title:'1-3图片擦擦擦',
+            img:'images/zysj/GIF.gif'
+        },
+        {
+            title:'1-9百度音乐全选',
+            img:'images/zysj/80.gif'
+        },
+        {
+            title:'1-11找数据',
+            img:'images/zysj/88.gif'
+        },
+        {
+            title:'1-11验证QQ号码',
+            img:'images/zysj/87.gif'
+        },
+        {
+            title:'1-12修改文本框的值',
+            img:'images/zysj/xgwbk.gif'
+        },
+        {
+            title:'1-12商品累计',
+            img:'images/zysj/splj.gif'
+        },
+        {
+            title:'1-15选项卡套选项卡',
+            img:'images/zysj/xxktxxk.gif'
+        },
+        {
+            title:'1-17自动切换选项卡',
+            img:'images/zysj/zdqhxxk.gif'
+        },
+        {
+            title:'1-18时间倒计时',
+            img:'images/zysj/tpsz.gif'
+        },
+        {
+            title:'1-18图片时钟',
+            img:'images/zysj/tpsz.gif'
+        },
+        {
+            title:'1-19封装运动函数轮播图',
+            img:'images/zysj/002.gif'
+        },
+        {
+            title:'1-23日历',
+            img:'images/zysj/rl.png'
+        },
+        {
+            title:'1-24多个DIV上下移动',
+            img:'images/zysj/dgdiv.gif'
+        },
+        {
+            title:'1-25文字打印机',
+            img:'images/zysj/wzdyj.gif'
+        },
+        {
+            title:'1-26文字查找替换',
+            img:'images/zysj/wzczth.gif'
+        },
+        {
+            title:'1-29图片随机排序',
+            img:'images/zysj/tpsjpx.gif'
+        },
+        {
+            title:'1-30消除表情小游戏',
+            img:'images/zysj/xcxyx.gif'
+        },
+        {
+            title:'2-2无限极菜单',
+            img:'images/zysj/wxjcd.gif'
+        },
+        {
+            title:'2-6创建文件夹',
+            img:'images/zysj/cjwjj.gif'
+        },
+        {
+            title:'2-6左右移动元素',
+            img:'images/zysj/zyyd.gif'
+        },
+        {
+            title:'2-6上下切换',
+            img:'images/zysj/syxy.gif'
+        },
+
+    ];
+    var thumbnail = document.querySelector('.thumbnail');
+    var mthBox = document.querySelector('.mthBox');
+    var start = document.querySelector('.start');
+    var statr = false;
+
+    var n = 0;
+
+    var timer = null;
+
+    console.log(mthArr)
+
+    start.onclick = function () {
+
+
+        if(statr){
+
+            start.innerHTML = '开始';
+            statr = false;
+            clearInterval(timer);
+            timer = null;
+
+        }else {
+
+            if(timer) return;
+
+            start.innerHTML = '停止';
+
+            timer = setInterval(function () {
+                n++;
+                if(n == mthArr.length){
+                    n = 0;
+                }
+                thumbnail.innerHTML = `<img src="${mthArr[n].img}" >`;
+                mthBox.innerHTML = `${mthArr[n].title}`;
+            });
+            statr = true;
+
+        }
+    };
+
+
+
+
+
+</script>
+
+</body>
+</html>

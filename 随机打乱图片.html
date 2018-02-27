@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>随机打乱图片</title>
+
+    <style>
+
+        *{margin: 0;padding: 0;box-sizing: border-box;}
+        a{text-decoration: none;}
+        :before{transition: .5s;}
+        ul,ol{list-style: none;}
+        em{font-style: normal;}
+        button{border: none;font-size: 16px;cursor: pointer;}
+        .box{background: linear-gradient(to bottom,#74a1cf,#a39ce2);overflow: hidden;padding-top: 50px;height: 759px;}
+        .con{width: 1000px;margin: 0 auto;padding: 0 100px;}
+        ::-webkit-scrollbar {width: 10px;margin-right: 10px;} /* 这是针对缺省样式 (必须的) */
+        ::-webkit-scrollbar-track {background-color: #cbcde6;border-radius: 10px;} /* 滚动条的滑轨背景颜色 */
+        ::-webkit-scrollbar-thumb {background-color: #a8a6f5;border-radius: 10px;} /* 滑块颜色 */
+        ::-webkit-scrollbar-button {background-color: transparent;} /* 滑轨两头的监听按钮颜色 */
+        ::-webkit-scrollbar-corner {background-color: black;}
+        /*-------------     以下是       ----------------*/
+        .BtnBox{text-align: center;padding-bottom: 60px;}
+        .BtnBox a{display: inline-block;width: 150px;height: 40px;line-height: 40px;text-align: center;background: #c4c2de;color: #332d52;border: 1px #4f497e solid;border-radius: 25px;font-size: 14px;}
+        .BtnBox .btnCur{background: #332d52;border-color: #fff;color: #fff;}
+        .bottomListTit{width: 110px;height: 30px;line-height: 30px;text-align: center;color: #6a54a0;background: #fff;border-radius: 25px;position: absolute;bottom: 0;left: 50%;margin-left: -55px;}
+        .bottomList li{position: relative;width: 150px;float: left;padding-bottom: 10px;margin-left: 60px;margin-bottom: 60px;}
+        .bottomList{overflow: hidden;margin-left: -60px;}
+
+    </style>
+</head>
+<body>
+
+<div class="box">
+
+    <div class="con">
+
+        <div class="BtnBox">
+            <a class="order btnCur" href="javascript:;">从小到大</a>
+            <a class="NoOrder" href="javascript:;">打乱顺序</a>
+        </div>
+
+        <div class="BoxBottom">
+            <ul class="bottomList">
+                <li>
+                    <div class="bottomListImg"><img src="images/Rdm-pic1.png"></div>
+                    <p class="bottomListTit">1-粉红</p>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<script>
+
+    var bottomList = document.querySelector('.bottomList');
+    var order = document.querySelector('.order');
+    var NoOrder = document.querySelector('.NoOrder');
+    var arrList = [
+
+        {
+            id:'One',
+            color:'粉色',
+            ranking:1,
+            img:'images/Rdm-pic1.png'
+        },
+        {
+            id:'Two',
+            color:'粉黄',
+            ranking:2,
+            img:'images/Rdm-pic2.png'
+        },
+        {
+            id:'Three',
+            color:'黄绿',
+            ranking:3,
+            img:'images/Rdm-pic3.png'
+        },
+        {
+            id:'Four',
+            color:'嫩绿',
+            ranking:4,
+            img:'images/Rdm-pic4.png'
+        },
+        {
+            id:'Five',
+            color:'湖蓝',
+            ranking:5,
+            img:'images/Rdm-pic5.png'
+        },
+        {
+            id:'Six',
+            color:'蓝紫',
+            ranking:6,
+            img:'images/Rdm-pic6.png'
+        },
+        {
+            id:'Seven',
+            color:'粉紫',
+            ranking:7,
+            img:'images/Rdm-pic7.png'
+        },
+        {
+            id:'Eight',
+            color:'紫红',
+            ranking:8,
+            img:'images/Rdm-pic8.png'
+        }
+    ];
+    wrapFn();
+    function wrapFn() {
+        var str = '';
+        for (var i = 0;i<arrList.length;i++){
+            str += '<li><div class="bottomListImg"><img src="'+ arrList[i].img +'"></div><p class="bottomListTit">'+ arrList[i].ranking  +'-'+ arrList[i].color +'</p></li>'
+        }
+        bottomList.innerHTML = str;
+    }
+
+    var state = true;
+    order.onclick = function () {
+
+        this.className = 'btnCur';
+        NoOrder.className = 'NoOrder';
+
+        if(this.state){
+            arrList.sort(function (a,b){
+                console.log(a,b);
+                return a.ranking - b.ranking;
+            });
+            wrapFn();
+            this.state = false;
+            order.innerHTML = '从大到小';
+
+        }else {
+            arrList.sort(function (a,b){
+                console.log(a,b);
+                return b.ranking - a.ranking;
+            });
+            wrapFn();
+            this.state = true;
+            order.innerHTML = '从小到大';
+        }
+    }
+
+    //////////  打乱顺序
+
+    NoOrder.onclick = function () {
+
+        this.className = 'btnCur';
+        order.className = 'order';
+
+        arrList.sort(function (){
+            return Math.random() - 0.5;
+        })
+        wrapFn();
+
+    }
+
+
+
+
+
+
+</script>
+
+</body>
+</html>

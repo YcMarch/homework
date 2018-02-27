@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>创建文件夹</title>
+
+    <style>
+
+        *{margin:0;padding: 0;box-sizing: border-box;}
+        ul,ol{list-style: none;}
+        .box{width: 700px;height: 500px;margin: 0 auto;background: url(images/cjwjj/warp.png);text-align: center;}
+        .wjjList{margin-top: 140px;display: inline-block;height: 255px;overflow-y: auto;width: 570px;background: rgba(255,255,255,.5);border-radius: 5px;}
+        .wjjList li{background: rgba(0,0,0,0);padding: 25px;position: relative;float: left;width: 140px;height: 140px;overflow: hidden;border-radius: 5px;}
+        .wjjText{color: #fff;}
+        .buts button{width: 150px;height: 40px;}
+        .buts{padding-top: 30px;}
+        .chaB{width: 10px;height: 10px;display: block;background: #fff;position: absolute;top:5px;left: 5px;border: 1px solid #fff;opacity: 0;border-radius: 50%;}
+        .wjjList .liHover{background: rgba(0, 0, 0, .7);}
+        .wjjList .liHover .chaB{opacity: 1;}
+        .wjjList .liHover .chaB.on{background: #6a54a0;}
+
+        ::-webkit-scrollbar {
+            width: 10px;
+            margin-right: 10px;
+        } /* 这是针对缺省样式 (必须的) */
+        ::-webkit-scrollbar-track {
+            background-color: #cbcde6;
+            border-radius: 10px;
+        } /* 滚动条的滑轨背景颜色 */
+        ::-webkit-scrollbar-thumb {
+            background-color: #9378dd;
+            border-radius: 10px;
+        } /* 滑块颜色 */
+        ::-webkit-scrollbar-button {
+            background-color: transparent;
+        } /* 滑轨两头的监听按钮颜色 */
+        ::-webkit-scrollbar-corner {
+            background-color: black;
+        } /* 横向滚动条和纵向滚动条相交处尖角的颜色 */
+
+    </style>
+
+</head>
+<body>
+
+
+<div class="box">
+
+   <ul class="wjjList">
+       <!-- <li>
+           <i class="chaB"></i><div class="wjjImg"><img src="images/cjwjj/wenjian.png"></div><p class="wjjText">新建文件夹</p>
+       </li> -->
+    
+   </ul>
+<div class="buts">
+   <button class="newBtn">新建文件夹</button>
+   <button class="delBtn">删除文件夹</button>
+</div>
+
+</div>
+
+<script>
+
+    var wjjUl = document.querySelector('.wjjList');
+    var newBtn = document.querySelector('.newBtn');
+    var delBtn = document.querySelector('.delBtn');
+
+    newBtn.onclick = function () {
+        //  重建一个节点 li
+        var liapp = document.createElement('li');
+        //  把节点插入到需要的父级当中
+        wjjUl.appendChild(liapp);
+        // 找到所有父级中添加的 li
+        var lis = wjjUl.querySelectorAll('li');
+
+        for(var i = 0;i<lis.length;i++){
+            //  给节点里面 填充结构
+            liapp.innerHTML = '<i class="chaB"></i><div class="wjjImg"><img src="images/cjwjj/wenjian.png"></div><p class="wjjText">新建文件夹'+ (i+1) +'</p>';
+        }
+
+        for(var i = 0;i<lis.length;i++) {
+            // 给每一个li 添加滑过事件
+            lis[i].onmouseover = function () {
+                this.className = 'liHover';
+            };
+            lis[i].onmouseout = function () {
+                //   滑离的时候判断以下 当前的第一个自己点上 是否有 on的样式
+                if(!this.firstElementChild.classList.contains('on')){
+                    this.className = '';
+                }
+            };
+            lis[i].onclick = function () {
+                // 点击当前的第一个子节点 添加取消  on 样式
+                this.firstElementChild.classList.toggle('on');
+            }
+    }
+
+    };
+
+    delBtn.onclick = function () {
+        // 点击删除按钮时候，找到所有的li
+        var lis = wjjUl.querySelectorAll('li');
+
+        for(var i =0;i<lis.length;i++){
+            // 判断所有的li的第一个子节点上  是否有 on 的样式，
+            if(lis[i].firstElementChild.classList.contains('on')){
+                lis[i].remove();  //   把带有的 移除
+            }
+        }
+    }
+</script>
+
+    
+</body>
+</html>

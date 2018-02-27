@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style>
+		    html,body{
+		    	width: 100%;
+		    	height: 100%;
+		    	margin: 0;
+		    }
+		    body{
+		    	background: url(images/zpxx/img/zpbg.png) no-repeat center center;
+		    	background-size: cover;
+		    	display: flex;
+		    }
+		    ul,li{
+		    	margin: 0;
+		    	padding: 0;
+		    	list-style: none;
+		    }
+		    p{
+		    	margin: 0;
+		    }
+		    a{
+		    	text-decoration: none;
+		    	color:#b6bdcf;
+		    }
+		    #content{
+		    	width: 700px;
+		    	height: 460px;
+		    	border-radius: 10px;
+		    	border: 1px solid #30343f;
+		    	margin: auto;
+		    	background: url(images/zpxx/img/logo.png) no-repeat 25px 25px #252934;
+		    	box-sizing: border-box;
+		    	padding: 84px 0px 0px 25px;
+		    }
+		    #leftList{
+		    	float: left;
+		    	width: 60px;
+		    	padding-right: 12px;
+		    	height: 100%;
+		    	/*background: url(images/zpxx/leftListBg.png) no-repeat right top;*/
+		    }
+		    #leftList li{
+		    	text-align: right;
+		    	height: 68px;
+		    	padding-top: 12px;
+		    	color: #6a7686;
+		    	font: 10px/18px "微软雅黑";
+		    }
+		    #leftList li span{
+		    	font-size: 12px;
+		    	display: block;
+					cursor: pointer;
+		    }
+		    #leftList .active span{
+		    	color: #ff2c4f;
+		    }
+		    #right{
+		    	width: 600px;
+		    	height: 100%;
+		    	float: left;
+		    }
+		    #rightList li{
+		    	height: 82px;
+		    	width: 100%;
+		    	box-sizing: border-box;
+		    	padding: 20px 25px 20px 30px;
+		    	position: relative;
+					cursor: pointer;
+		    }
+		    #rightList li:hover{
+		    	background-color: #1e212a;
+		    }
+		    #rightList li:hover .num{
+		    	color: #ff2c4f;
+		    }
+		    #rightList li:hover:before{
+		    	content: "";
+		    	width: 2px;
+		    	height: 54px;
+		    	position: absolute;
+		    	background-color: #ff2c4f;
+		    	left: -3px;
+		    	top: 10px;
+		    }
+		    #rightList li:after{
+		    	content: "";
+		    	width: 543px;
+		    	height: 1px;
+		    	position: absolute;
+		    	bottom: 0px;
+		    	right: 25px;
+		    	background:url(images/zpxx/img/lineBg.png) repeat-x;
+		    }
+		    #rightList .num{
+		    	font-size: 30px;
+		    	font-family: arial;
+		    	color:#6a7686;
+		    	float: left;
+		    	width: 36px;
+		    	height: 40px;
+		    	border-right: 1px solid #303642;
+		    }
+		    #rightList .list{
+		    	float: left;
+		    	width: 500px;
+		    	margin-left: 6px;
+		    	font-size: 14px;
+		    	color: #b6bdcf;
+		    	font-family: "微软雅黑";
+		    }
+		    #rightList .list span{
+		    	float: left;
+		    }
+		    
+		    .list>a:nth-of-type(1){
+		    	height: 26px;
+		    	float: none;
+		    	font-size: 14px;
+		    }
+		    .job{
+		    	margin-right: 15px;
+		    }
+		    #rightList .list time{
+		    	float: right;
+		    	color: #606a7a;
+		    }
+		    .list .text{
+		    	float: left;
+		    	width: 430px;
+		    	overflow: hidden;
+				white-space: nowrap;
+				text-overflow: ellipsis;
+		    }
+		    .list a{
+		    	float: right;
+		    	font-size: 12px;
+		    }
+		    nav{
+		    	font-size: 0px;
+		    	text-align: center;
+		    }
+		    nav a{
+		    	font: 12px/46px "微软雅黑";
+		    	display: inline-block;
+		    	vertical-align: middle;
+		    	width: 24px;
+		    }
+		    nav a.active{
+		    	color: #eb2a4b;
+		    }
+		</style>
+	</head>
+	<body>
+		<div id="content">
+			<ul id="leftList">
+				 <li class="active"><span>社会招聘</span>society</li>
+				<!--<li><span>校园招聘</span>campus</li>-->
+			</ul>
+			<div id="right">
+				<ul id="rightList">
+					<!-- <li>
+						<span class="num">01</span>
+						<div class="list">
+							<a href=""><span class="job">职位需求：前端开发工程师</span><span>需求人数：2名</span><time>2014-04-10</time></a>
+							<p><span class="text">岗位要求：布拉布拉布拉一大段话布拉布拉布拉一大段话布拉布拉布拉一大段话</span><a href="javascript:;">查看详情>></a></p>
+						</div>
+					</li> -->
+				</ul>
+				<nav id="nav">
+					<span id="pagesBox">
+						<!-- <a class="active" href="javascript:;">1</a>
+						<a href="javascript:;">2</a>
+						<a href="javascript:;">3</a>
+						<a href="javascript:;">4</a> -->
+					</span>
+				</nav>
+			</div>
+		</div>
+		<script>
+
+            var data = {
+                list : [
+                    {
+                        tip : 'world',
+                        text : '社会招聘',
+                        eng:"society"
+                    }
+                ],
+                world: [{
+                    num: 1,
+                    job: "社会招聘",
+                    pNum: 2,
+                    ask: "岗位要求：1)helpdesk支持；2)熟悉计算机软、硬件及网络维护；3)有相关工作经验，态度端正；4)有一定的服务意识",
+                    data: "2014-04-10"
+                }, {
+                    num: 2,
+                    job: "社会招聘",
+                    pNum: 1000,
+                    ask: "岗位要求：1)helpdesk支持；2)熟悉计算机软、硬件及网络维护；3)有相关工作经验，态度端正；4)有一定的服务意识",
+                    data: "2014-04-10"
+                }, {
+                    num: 3,
+                    job: "社会招聘",
+                    pNum: 2,
+                    ask: "岗位要求：1)helpdesk支持；2)熟悉计算机软、硬件及网络维护；3)有相关工作经验，态度端正；4)有一定的服务意识",
+                    data: "2014-04-10"
+                }, {
+                    num: 4,
+                    job: "社会招聘",
+                    pNum: 2,
+                    ask: "岗位要求：1)helpdesk支持；2)熟悉计算机软、硬件及网络维护；3)有相关工作经验，态度端正；4)有一定的服务意识",
+                    data: "2014-04-10"
+                }, {
+                    num: 5,
+                    job: "社会招聘",
+                    pNum: 2,
+                    ask: "岗位要求：1)helpdesk支持；2)熟悉计算机软、硬件及网络维护；3)有相关工作经验，态度端正；4)有一定的服务意识",
+                    data: "2014-04-10"
+                }, {
+                    num: 6,
+                    job: "社会招聘",
+                    pNum: 2,
+                    ask: "岗位要求：1)helpdesk支持；2)熟悉计算机软、硬件及网络维护；3)有相关工作经验，态度端正；4)有一定的服务意识",
+                    data: "2014-04-10"
+                }, {
+                    num: 7,
+                    job: "社会招聘",
+                    pNum: 2,
+                    ask: "岗位要求：1)helpdesk支持；2)熟悉计算机软、硬件及网络维护；3)有相关工作经验，态度端正；4)有一定的服务意识",
+                    data: "2014-04-10"
+                }, {
+                    num: 8,
+                    job: "社会招聘",
+                    pNum: 2,
+                    ask: "岗位要求：1)helpdesk支持；2)熟悉计算机软、硬件及网络维护；3)有相关工作经验，态度端正；4)有一定的服务意识",
+                    data: "2014-04-10"
+                }, {
+                    num: 9,
+                    job: "社会招聘",
+                    pNum: 2,
+                    ask: "岗位要求：1)helpdesk支持；2)熟悉计算机软、硬件及网络维护；3)有相关工作经验，态度端正；4)有一定的服务意识",
+                    data: "2014-04-10"
+                }, {
+                    num: 10,
+                    job: "社会招聘",
+                    pNum: 2,
+                    ask: "岗位要求：1)helpdesk支持；2)熟悉计算机软、硬件及网络维护；3)有相关工作经验，态度端正；4)有一定的服务意识",
+                    data: "2014-04-10"
+                },
+
+                    {
+                        num: 11,
+                        job: "社会招聘",
+                        pNum: 2,
+                        ask: "岗位要求：1)helpdesk支持；2)熟悉计算机软、硬件及网络维护；3)有相关工作经验，态度端正；4)有一定的服务意识",
+                        data: "2014-04-10"
+                    }
+                ]
+            };
+
+            var rightList = document.querySelector('#rightList');// 获取到li的容器
+            var pagesBox = document.querySelector('#pagesBox');  // 获取到分页的容器
+            addLiTorightList(data.world);   //  执行结构函数  把结构数据传参传进去
+            function addLiTorightList(data){    //  生成结构的函数
+                for(var i=0; i<data.length; i++){  //  循环数据的长度
+                    var li = document.createElement('li');  //  创建节点
+                    li.innerHTML = `
+						<span class="num">${data[i].num}</span>
+						<div class="list">
+							<a href="">
+								<span class="job">职位需求：前端开发工程师</span>
+								<span>需求人数：${data[i].pNum}名</span>
+								<time>${data[i].data}</time>
+							</a>
+							<p>
+								<span class="text">岗位要求：${data[i].ask}</span>
+								<a href="javascript:;">查看详情>></a>
+							</p>
+						</div>`;
+                    rightList.appendChild(li);  //  插入节点
+                }
+                for(var i=0; i<Math.ceil(data.length/4); i++){  //  循环  用总数据条数 /4  向上去整
+                    pagesBox.innerHTML += `<a href="javascript:;">${i+1}</a>`;  // 把分页结构插入到分页容器中
+                }
+            }
+            var btns = pagesBox.getElementsByTagName('a');  // 获取到所有的分页
+            var lis = rightList.getElementsByTagName('li');  //  获取到所有的li
+
+            havawlh(window.location.hash);   // 执行一次显示结构函数
+
+			for(var i =0;i<btns.length;i++){  // 给每一个分页添加点击事件
+                btns[i].index= i;  //   给每一个分页添加一个下标
+                btns[i].onclick = function () {
+                    for(var i =0;i<btns.length;i++){
+                        btns[i].className = '';//  去掉所有分页的样式
+					}
+                    this.className = 'active';  // 给当前点击的添加样式
+                    window.location.hash = this.index+1;   // 设置 hash 值 等于 当前下标值 +1
+                    havawlh(window.location.hash);  //  把hash值传进显示结构函数中
+                }
+			}
+            function havawlh(wlh){
+                if(wlh){   //  判断一下是否有hash值
+                    // 有的话
+                    var n = wlh.slice(1);  // 声明 一个 n  等于hash值截取从第 2 位
+                    btns[n-1].className = 'active';  // 给按钮对应的值添加当前样式
+                    for(var i=0; i<lis.length; i++){
+                        lis[i].style.display = 'none';  //  让所有的li隐藏
+                    }
+                    if(n == btns.length){  //  如果 n 等于 分页的长度
+                        for(var i=(n-1)*4; i<lis.length; i++){  //    从对应下标 * 4 的条数开始循环
+                            lis[i].style.display = 'block';  // 让他们显示
+                        }
+                    }else{
+                        for(var i=(n-1)*4; i<n*4; i++){  //  如果不等于的时候 就让对应下标 * 4 ，
+                            lis[i].style.display = 'block';// 让他们显示
+                        }
+                    }
+                }else{  // 如果没有 hash值
+                    btns[0].className = 'active';   // 就让第一个 分页添加样式
+                    for(var i=0; i<lis.length; i++){
+                        lis[i].style.display = 'none';  // 让所有的li隐藏
+                    }
+                    for(var i=0; i<4; i++){
+                        lis[i].style.display = 'block'; // 让前4 个显示
+                    }
+                }
+            }
+		</script>
+	</body>
+</html>

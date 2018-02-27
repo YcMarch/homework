@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Document</title>
+<style>
+*{
+	margin: 0;
+	padding: 0;
+}
+#wrap{
+	width:450px;
+	height: 260px;
+	background: #ffb746;
+	/*border-radius:10px;*/
+	border: 1px solid #000;
+	font-family: "微软雅黑";
+	
+	/*box-shadow:1px 1px 1px #000;*/
+}
+nav a{
+	display: inline-block;
+	width:146px;
+	height: 40px;
+	font-size: 16px;
+	text-align: center;
+	line-height: 40px;
+	color: #000;
+	text-decoration: none;
+	background: #fff;
+}
+a.active{
+	background: #ffb746;
+	color: #fff;
+}
+
+#box{
+	margin:20px;
+	height: 180px;
+}
+#box ul{
+	width:226px;
+	list-style: none;
+	float: left;
+}
+#box div{
+	display: none;
+}
+#box div.show{
+	display: block;
+}
+#box ul li{
+	height: 60px;
+	width
+}
+#box ul li.active{
+	background:#fff;
+}
+#box li p{
+	font-size: 14px;
+	color:#fff;
+	text-indent:2em;
+	line-height:2.5em;
+	height: 35px;
+}
+#box li.active p{
+	font-size: 16px;
+	color:#000;
+}
+#box li.active span{
+	color:#000;
+}
+img{
+	width:178px;
+	height: 178px;
+	display: block;
+	float: left;
+	border: 2px solid #fff;
+	display: none;
+}
+img.active{
+	display: block;
+}
+span{
+	font-size: 12px;
+	line-height: 20px;
+	text-indent:2.5em;
+	display: block;
+	color:#fff;
+}
+#box div{
+	height: 180px;
+	width:
+}
+
+</style>
+</head>
+<body>
+	<section id="wrap">
+		<nav id="nav">
+			<a href="javascript:;" class="active">专题</a>
+			<a href="javascript:;">视频</a>
+			<a href="javascript:;">图片</a>
+		</nav>
+		<div id="box">
+			<div class="show">
+				<img src="images/xxk/1.jpg" alt="" class="active"/>
+				<img src="images/xxk/2.jpg" alt=""/>
+				<img src="images/xxk/3.jpg" alt=""/>
+				<ul class="show">
+					<li  class="active">
+						<p>奇虎360纽交所上市11</p>
+						<span>2016-10-12</span>
+					</li>
+					<li>
+						<p>2011年IT领袖峰会</p>
+						<span>2016-10-12</span>
+					</li>
+					<li>
+						<p>CCBN召开 助三网融合</p>
+						<span>2016-10-12</span>
+					</li>
+				</ul>
+			</div>
+			
+			<div>
+				<img src="images/xxk/4.jpg" alt=""  class="active"/>
+				<img src="images/xxk/3.jpg" alt=""/>
+				<img src="images/xxk/1.jpg" alt=""/>
+				<ul class="show">
+					<li  class="active">
+						<p>奇虎360纽交所上市222</p>
+						<span>2016-10-12</span>
+					</li>
+					<li>
+						<p>2011年IT领袖峰会</p>
+						<span>2016-10-12</span>
+					</li>
+					<li>
+						<p>CCBN召开 助三网融合</p>
+						<span>2016-10-12</span>
+					</li>
+				</ul>
+			</div>
+			
+			<div>
+				<img src="images/xxk/1.jpg" alt=""  class="active"//>
+				<img src="images/xxk/2.jpg" alt=""/>
+				<img src="images/xxk/3.jpg" alt=""/>
+				<ul class="show">
+					<li class="active">
+						<p>奇虎360纽交所上市333</p>
+						<span>2016-10-12</span>
+					</li>
+					<li>
+						<p>2011年IT领袖峰会</p>
+						<span>2016-10-12</span>
+					</li>
+					<li>
+						<p>CCBN召开 助三网融合</p>
+						<span>2016-10-12</span>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</section>
+<script>
+
+	var divs = document.querySelectorAll('#box div');
+	var m = 0;
+	var navA = document.querySelectorAll('#nav a');
+    var timer = null;
+    var n = 0;
+
+    Tab();
+	function Tab() {
+
+        var lis = divs[m].querySelectorAll('li');
+        var imgs = divs[m].querySelectorAll('img');
+        var lisLen = lis.length;
+
+        for( var i = 0; i < imgs.length; i++ ){
+            imgs[i].className = '';
+            lis[i].className = '';
+        }
+        imgs[n].className = 'active';
+        lis[n].className = 'active';
+
+        timer = setInterval(function () {   // 开启定时器
+            n++;   //  让 n++
+            if(n == lisLen){
+                clearInterval(timer);  //  如果n 等于了 当前板块li的长度
+
+                divs[m].style.display = 'none';
+                m++;
+                if(m == lisLen){  // 当 m  等于 长度的时候
+                    m = 0;   //
+                }
+                for(var i = 0;i<lisLen;i++){
+                    navA[i].className = '';   //  去掉所有的 除 当前的样式
+                }
+                navA[m].className = 'active';  //  给对应的标签添加样式
+                divs[m].style.display = 'block'; //  给对应的标签添加样式
+                n = 0;    //  让他回到第一个
+                Tab();    //  执行当前的运动
+            }
+            for(var i =0;i<lisLen;i++){   // 清除 除 n 的其他所有的样式名
+                lis[i].className = '';
+                imgs[i].className = '';
+            }
+            lis[n].className = 'active';  //  给 对应的li 加样式
+            imgs[n].className = 'active';//  给 对应的 img 加样式
+        },500)
+    }
+
+
+
+	function Fnmos(parent) {
+        var lis = parent.querySelectorAll('li');
+        var imgs = parent.querySelectorAll('img');
+        var lisLen = lis.length;
+
+        for(var i = 0;i<lisLen;i++){
+            lis[i].index = i;
+            lis[i].onmouseover = function () {
+                for(var i = 0;i<lisLen;i++){
+                    lis[i].className = '';
+                    imgs[i].className = '';
+                }
+                this.className = 'active';
+                imgs[this.index].className = 'active';
+
+                clearInterval(timer);
+            };
+            lis[i].onmouseout = function () {
+                n = this.index;
+                Tab();
+            }
+        }
+    }
+
+    for (var i = 0;i<divs.length;i++){
+        Fnmos(divs[i])
+	}
+
+	//  做上面标签
+
+	for(var i = 0;i<navA.length;i++){
+        navA[i].index = i;
+        navA[i].onmouseover = function () {
+
+            clearInterval(timer);
+
+            if(this.index != m){
+
+                var imgs = divs[this.index].querySelectorAll('img');
+                var lis = divs[this.index].querySelectorAll('li');
+
+                for( var i = 0; i < imgs.length; i++ ){
+                    imgs[i].className = '';
+                    lis[i].className = '';
+                }
+
+                imgs[0].className = 'active';
+                lis[0].className = 'active';
+
+                n = 0;
+            }
+            for(var i = 0;i<divs.length;i++){
+                navA[i].className = '';
+                divs[i].style.display = 'none';
+			}
+            this.className = 'active';
+            divs[this.index].style.display = 'block';
+        };
+
+        navA[i].onmouseout = function () {
+            m = this.index;
+            Tab();
+        }
+	}
+
+
+
+
+
+</script>
+
+</body>
+</html>

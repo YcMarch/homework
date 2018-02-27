@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>文字替换</title>
+    <style>
+
+        *{margin: 0;padding: 0;box-sizing: border-box;}
+        :before{transition: .5s;}
+        ul,ol{list-style: none;}
+        em{font-style: normal;}
+        button{border: none;font-size: 16px;cursor: pointer;}
+        .box{background: linear-gradient(to bottom,#74a1cf,#a39ce2);overflow: hidden;padding-top: 50px;height: 759px;}
+        .con{width: 720px;margin: 0 auto;}
+        ::-webkit-scrollbar {
+            width: 10px;
+            margin-right: 10px;
+        } /* 这是针对缺省样式 (必须的) */
+        ::-webkit-scrollbar-track {
+            background-color: #cbcde6;
+            border-radius: 10px;
+        } /* 滚动条的滑轨背景颜色 */
+        ::-webkit-scrollbar-thumb {
+            background-color: #a8a6f5;
+            border-radius: 10px;
+        } /* 滑块颜色 */
+        ::-webkit-scrollbar-button {
+            background-color: transparent;
+        } /* 滑轨两头的监听按钮颜色 */
+        ::-webkit-scrollbar-corner {
+            background-color: black;
+        }
+        /*-------------     以下是       ----------------*/
+
+        /*      上结构  begin        */
+        .conTop{background: #fefefe;height: 410px;border-radius: 5px;box-shadow: 0 0 10px #aadce6;padding: 32px;}
+        .conT-Left{width: 500px;height: 340px;background: #edf8fa;border: 1px #aadce6 solid;border-radius: 2px;padding: 35px 25px;overflow: hidden;line-height: 40px;overflow-y: auto;font-size: 14px;float: left;margin-right: 20px;}
+        .conT-Left span{background: #74a1cf;}
+        .conT-Right{overflow: hidden;position: relative;width: 125px;height: 340px;}
+        .conT-Right button{width: 125px;height: 100px;color: #fff;cursor: pointer;position: absolute;top: 0;left: 0;transition: .5s;}
+        .conT-Right button:nth-child(1){background: #90e2f2;z-index: 3;}
+        .conT-Right button:nth-child(2){background: #a8a6f5;z-index: 1;}  /* 120*/
+        .conT-Right button:nth-child(3){background: #9fe7a9;z-index: 1;}  /* 240*/
+        .conT-Right button em{padding-top: 40px;display: block;position: relative;}
+        .conT-Right button em:before{content: '';width: 32px;height: 32px;background: url(images/open_10.png) no-repeat center;position: absolute;top: 0;left: 50%;margin-left: -16px;}
+        .conT-Right button:nth-child(2) em:before{content: '';background-image: url(images/li_bg_12.png);}
+        .conT-Right .button2 em:before{content: '';transform: rotate(45deg) }
+        .conT-Right button:nth-child(3) em:before{content: '';background-image: url(images/replace_11.png);}
+
+        /*      上结构  END          */
+
+        /*      下结构  begin        */
+
+        .conBotm{background: #fefefe;height: 200px;border-radius: 5px;box-shadow: 0 0 10px #aadce6;margin-top: 40px;padding: 32px;position: relative;transition: .5s;top:50px;opacity: 0;width: 720px;}
+        .conB-Top{padding-bottom: 20px;}
+        .conB-Top button{width: 125px;height: 50px;color: #fff;}
+        .conB-Top button:nth-child(1){background: #a8a6f5;}
+        .conB-Top button:nth-child(2){background: #9fe7a9;}
+        .conB-BotmCon input{width: 500px;height: 60px;line-height: 60px;padding-left: 13px;background: #edf8fa;border: 1px #aadce6 solid;margin-right: 5px;transition: .5s;}
+        .replaceSoBtn{width: 120px;height: 60px;background: #a8a6f5 url(images/li_bg_12.png) no-repeat  center;float: right;}
+        .conB-Botm{float: left;}
+        .conB-BotmCon .replaceText{width: 0;overflow: hidden;}
+        .conB-BotmCon .replaceTextOpen{width: 250px;}
+        .closeBtn{position: absolute;top: 30px;right: 30px;cursor: pointer;transition: .5s;}
+        .closeBtn:hover{transform: rotate(360deg);}
+        .conBotmBox{position: relative;}
+
+        /*      下结构  END          */
+
+    </style>
+</head>
+<body>
+
+<div class="box">
+
+
+    <div class="con">
+        <!--  上结构  begin   -->
+        <div class="conTop">
+            <div class="conT-Left">妙味课堂是一支独具特色的IT培训团队，妙味反对传统IT教育枯燥乏味的教学模式，妙味提供一途中全新的快乐学习方法！目前主要针对的是javascript培训，同时还提供了css教程、javascript视频、js特效等，最新推出了外地学员们喜欢的javascript网络课程服务，同时还为处于javascript入门阶段的朋友录制了大量javascript视频，其中涉及了大量javascript基础知识，希望妙味课堂推出的javascript网络培训课程能带给大家更多惊喜。</div>
+            <div class="conT-Right">
+               <button class="UpBtn"><em>展开</em></button>
+               <button class="findBtn"><em>查找</em></button>
+               <button class="replaceBtn"><em>替换</em></button>
+            </div>
+        </div>
+        <!--  上结构  END     -->
+        <!--  下结构  begin  -->
+        <div class="conBotmBox">
+            <div class="conBotm">
+                <i class="closeBtn"><img src="images/close.png"></i>
+                <div class="conB-Top">
+                    <button class="conB-Find">查找</button>
+                    <button class="conB-Replace">替换</button>
+                </div>
+                <div class="conB-Botm">
+                    <div class="conB-BotmCon">
+                        <input type="text" placeholder="输入要查找的内容">
+                        <input type="text" placeholder="输入要替换的内容" class="replaceText" style="opacity: 0;">
+                    </div>
+                </div>
+                <button class="replaceSoBtn"></button>
+            </div>
+        </div>
+
+        <!--  下结构  END    -->
+    </div>
+</div>
+
+<script>
+
+    /*   1. 点击展开，显示下两块，与下面板块，同时修改展开变为收起
+         2.点击收起与点击关闭按钮，上面1.的都恢复原状
+         3.点击搜索按钮的时候，判断当前状态是 查找 或者 替换
+
+    *
+    * */
+
+    var UpBtn = document.querySelector('.UpBtn'),
+        UpBtnEm = UpBtn.querySelector('em'),
+        conTBtns = document.querySelectorAll('button'),
+        conBotm = document.querySelector('.conBotm'),
+        closeBtn = document.querySelector('.closeBtn'),
+        conBReplace = document.querySelector('.conB-Replace'),
+        conBBotmInputs = document.querySelectorAll('input'),
+        conBFind = document.querySelector('.conB-Find'),
+        findBtn = document.querySelector('.findBtn'),
+        replaceBtn = document.querySelector('.replaceBtn'),
+        replaceSoBtn = document.querySelector('.replaceSoBtn'),
+        replaceText = document.querySelector('.replaceText'),
+        conTLeft = document.querySelector('.conT-Left');
+
+    var onOff = false;
+    //  点击显示板块
+    UpBtn.onclick = function () {
+        if(onOff){
+            closeFn();
+        }else {
+            UpBtnEm.innerHTML = '收起';
+            conTBtns[0].className = 'button2';
+            conTBtns[1].style.top = '120px';
+            conTBtns[2].style.top = '240px';
+            conBotm.style.opacity = '1';
+            conBotm.style.top = '0';
+            onOff = true;
+
+            for(var i = 0;i<conBBotmInputs.length;i++){
+                conBBotmInputs[i].value = '';
+            }
+        }
+    };
+    //  点击关闭按钮
+    closeBtn.onclick = closeFn;
+    //  点击下面的替换
+    conBReplace.onclick = replaceFn;
+    //  点击上面的 替换
+    replaceBtn.onclick = replaceFn;
+    //  点击下面查找
+    conBFind.onclick = findFn;
+    //  点击上面的 查找
+    findBtn.onclick = findFn;
+
+    var conTLeftInnerHtmlBegin = conTLeft.innerHTML;
+
+    replaceSoBtn.onclick = function () {
+
+        var conTLeftInnerHtmlBegin2 = conTLeft.innerHTML;
+
+        if(conBBotmInputs[0].value == ''){
+
+            alert('请输入内容');
+            return
+        }else {
+
+            if(replaceText.style.opacity == '0'){
+
+                var newCon = conTLeftInnerHtmlBegin2;
+
+                /* alert('我是查找');*/
+                /*conTLeftInnerHtmlBegin = conTLeft.innerHTML*/
+
+                var conBBotmInputsOne = conBBotmInputs[0].value;
+
+                if (!newCon.includes(conBBotmInputsOne)){
+                    alert('查无此字');
+                    return;
+                }
+                var arr = conTLeftInnerHtmlBegin.split(conBBotmInputsOne);
+
+                var str = ''
+
+                str = arr.join('<span>'+ conBBotmInputsOne +'</span>');
+
+                conTLeft.innerHTML = str;
+
+            }else {
+
+                var conTLeftInnerHtmlBegin3 = conTLeftInnerHtmlBegin;
+                /*alert('我是替换')*/
+                var conBBotmInputsOne2 = conBBotmInputs[0].value;
+
+                /*var conTLeftInnerHtmlBeginNew = conTLeftInnerHtmlBegin3;*/
+
+                var conBBotmInputsTwo = conBBotmInputs[1].value;
+
+                if (!conTLeftInnerHtmlBegin3.includes(conBBotmInputsOne2)){
+                    alert('查无此字');
+                    return;
+                }
+
+                if(conBBotmInputs[1].value == ''){
+                    alert('请输入替换内容');
+                    return
+                }else {
+
+                    var arr2 = conTLeftInnerHtmlBegin3.split(conBBotmInputsOne2);
+
+                    //conTLeft.innerHTML = arr2.join('<span>'+ conBBotmInputsTwo +'</span>');
+
+                    //conTLeftInnerHtmlBegin = arr2.join(conBBotmInputsTwo);
+
+                    var str2 = '';
+
+                    str2 = arr2.join('<span>'+ conBBotmInputsTwo +'</span>');
+
+                    conTLeft.innerHTML = str2;
+
+                }
+            }
+        }
+    };
+
+    /*   封  函数*/
+
+    // 查找函数
+    function findFn() {
+        conBBotmInputs[1].style.opacity = '0';
+        conBBotmInputs[1].className = 'replaceText';
+        conBBotmInputs[0].style.width = '500px';
+        for(var i = 0;i<conBBotmInputs.length;i++){
+            conBBotmInputs[i].value = '';
+        }
+
+    }
+    // 替换函数
+    function replaceFn() {
+        conBBotmInputs[1].style.opacity = '1';
+        conBBotmInputs[1].className = 'replaceText replaceTextOpen';
+        conBBotmInputs[0].style.width = '250px';
+    }
+    // 收起函数
+    function closeFn() {
+        UpBtnEm.innerHTML = '展开';
+        conTBtns[0].className = '';
+        conTBtns[1].style.top = '0';
+        conTBtns[2].style.top = '0';
+        conBotm.style.opacity = '0';
+        conBotm.style.top = '50px';
+        onOff = false;
+        conBBotmInputs[1].style.opacity = '0';
+        conBBotmInputs[1].className = 'replaceText';
+        conBBotmInputs[0].style.width = '500px';
+        for(var i = 0;i<conBBotmInputs.length;i++){
+            conBBotmInputs[i].value = '';
+        }
+        //conTLeft.innerHTML =conTLeftInnerHtmlBegin;
+    }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>无极菜单</title>
+</head>
+<body>
+
+    <div class="box">
+        <!--<ul>
+            <li>
+                <span>音乐人</span>
+                <ul>
+                    <li><span>李宗盛</span>
+                        <ul>
+                            <li><span>山丘</span></li>
+                        </ul>
+                    </li>
+                    <li><span>周杰伦</span>
+                        <ul>
+                            <li><span>告白气球</span></li>
+                            <li><span>退后</span></li>
+                            <li><span>珊瑚海</span></li>
+                        </ul>
+                    </li>
+                    <li><span>林俊杰</span>
+                        <ul>
+                            <li><span>女儿情</span></li>
+                            <li><span>崇拜</span></li>
+                        </ul>
+                    </li>
+                    <li><span>陈奕迅</span>
+                        <ul>
+                            <li><span>陪你度过漫长岁月</span></li>
+                            <li><span>浮夸</span></li>
+                        </ul>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <span>舞蹈人</span>
+                <ul>
+                    <li><span>张佑赫</span>
+
+                        <ul>
+                            <li><span>我们是未来</span></li>
+                        </ul>
+                    </li>
+                    <li><span>文熙俊</span></li>
+                </ul>
+            </li>
+            <li>
+                <span>电影人</span>
+                <ul>
+                    <li><span>冯小刚</span>
+
+                        <ul>
+                            <li><span>唐山大地震</span></li>
+                            <li><span>芳华</span></li>
+                        </ul>
+                    </li>
+                    <li><span>张艺谋</span>
+                        <li><span>金陵十三钗</span></li>
+                    </li>
+                </ul>
+            </li>
+        </ul>-->
+    </div>
+
+<script>
+
+    var arr = [
+
+        {
+            category:'音乐人',
+            children:[
+                {
+                    category:'李宗盛',
+                    children:[
+                        {
+                            category:'山丘'
+                        }
+                    ]
+                },
+                {
+                    category:'周杰伦',
+                    children:[
+                        {
+                            category:'告白气球'
+                        },
+                        {
+                            category:'退后'
+                        },
+                        {
+                            category:'珊瑚海'
+                        }
+                    ]
+
+                },
+                {
+                    category:'林俊杰',
+                    children:[
+                        {
+                            category:'女儿情'
+                        },
+                        {
+                            category:'崇拜'
+                        }
+                    ]
+                },
+                {
+                    category:'陈奕迅',
+                    children:[
+                        {
+                            category:'陪你度过漫长岁月'
+                        },
+                        {
+                            category:'浮夸'
+                        }
+                    ]
+
+                }
+            ]
+        },
+        {
+            category:'舞蹈人',
+            children:[
+                {
+                    category:'张佑赫',
+                    children:[
+
+                        {
+                            category:'我们是未来'
+                        }
+
+                    ]
+                },
+                {
+                    category:'文熙俊'
+                }
+            ]
+        },
+        {
+            category:'电影人',
+            children:[
+                {
+                    category:'冯小刚',
+                    children:[
+
+                        {
+                            category:'唐山大地震'
+                        },
+                        {
+                            category:'芳华'
+                        }
+
+                    ]
+                },
+                {
+                    category:'张艺谋',
+                    children:[
+
+                        {
+                            category:'金陵十三钗'
+                        }
+
+                    ]
+                }
+            ]
+        }
+
+    ]
+
+    /////////////////   上为数组
+
+    var box = document.querySelector('.box');
+
+    function Fn(zu) {
+        var html = '<ul>';
+        for(var i = 0;i<zu.length;i++){
+            html += '<li><span>'+ zu[i].category +'</span>';
+            if(zu[i].children){
+                html += Fn(zu[i].children)
+            }
+            html += '</li>'
+        }
+
+        html += '</ul>';
+
+        return html;
+
+    }
+
+    box.innerHTML = Fn(arr)
+</script>
+
+</body>
+</html>

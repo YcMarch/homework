@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <style>
+    html {
+        width: 100%;
+        height: 100%;
+    }
+    
+    body {
+        margin: 0px;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .main {
+        width: 100%;
+        height: 100%;
+        background: url(images/wjcd/bg.png) no-repeat;
+        background-size: 100% 100%;
+        overflow: hidden;
+    }
+    
+    .logo {
+        display: block;
+        width: 200px;
+        height: 55px;
+        background: url(images/wjcd/logo.png) no-repeat;
+        margin: 20px auto;
+    }
+    
+    ul {
+        list-style: none;
+        font-size: 22px;
+        color: #8c949c;
+        font-weight: bold;
+    }
+    
+    ul li {
+        position: relative;
+        padding-left: 10px;
+    }
+    
+    ul li div {
+        height: 98%;
+        width: 1px;
+        border-left: 1px dotted #ccc;
+        position: absolute;
+        left: 14px;
+        top: 18px;
+    }
+    
+    ul ul {
+        display: none;
+    }
+    ul .none{
+        display: none;
+    }
+    
+    ul li span {
+        display: block;
+        line-height: 32px;
+        padding-left: 15px;
+        background: url(images/wjcd/icon.png) no-repeat left 500px;
+    }
+    
+    ul li span.add {
+        background-position: 0px -32px;
+    }
+    
+    ul li span.line {
+        background-position: 0px 11px;
+    }
+    
+    .tree {
+        margin-left: 300px;
+    }
+    </style>
+    <script>
+    </script>
+</head>
+
+<body>
+    <div class="main">
+        <a href="http://www.miaov.com" class="logo"></a>
+        <div class="tree">
+            <ul id="oUl">
+                 <!--<li>
+                	<span class="line">第一集菜单</span>
+                    <ul>
+                        <li><span>第二集菜单</span></li>
+                        <li><span>第二集菜单</span></li>
+                        <li>
+                        	<span class="line">第二集菜单</span>
+                            <ul>
+                                <li><span>第三集菜单</span></li>
+                                <li><span>第三集菜单</span></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>-->
+            </ul>
+        </div>
+    </div>
+
+<script>
+
+   var oUl = document.querySelector('#oUl');
+
+    var arr = [
+        {
+            title:'第一集菜单',
+            child:[
+                {
+                    title:'第二集菜单'
+                },
+                {
+                    title:'第二集菜单'
+                },
+                {
+                    title:'第二集菜单',
+                    child:[
+                        {
+                            title:'第三集菜单'
+                        },
+                        {
+                            title:'第三集菜单'
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            title:'第一集菜单',
+            child:[
+                {
+                    title:'第二集菜单'
+                },
+                {
+                    title:'第二集菜单'
+                },
+                {
+                    title:'第二集菜单',
+                    child:[
+                        {
+                            title:'第三集菜单'
+                        },
+                        {
+                            title:'第三集菜单'
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            title:'第一集菜单',
+            child:[
+                {
+                    title:'第二集菜单'
+                },
+                {
+                    title:'第二集菜单'
+                },
+                {
+                    title:'第二集菜单',
+                    child:[
+                        {
+                            title:'第三集菜单'
+                        },
+                        {
+                            title:'第三集菜单'
+                        }
+                    ]
+                }
+            ]
+        }
+    ];
+
+    var len = arr.length;
+    var str= '';
+    var twostr = '';
+    var threestr = '';
+    for(var i = 0;i< len;i++){
+        str += '<li class="one"><span class="add">'+ arr[i].title +'</span>';
+        if(arr[i].child){
+            twostr += '<ul>';
+            for(var k = 0;k<arr[i].child.length;k++){
+                twostr += '<li class="two"><span class="line">'+ arr[i].child[k].title +'</span>';
+                if(arr[i].child[k].child){
+                    threestr += '<ul>';
+                    for(var j =0;j<arr[i].child[k].child.length;j++){
+                        threestr += '<li class="three"><span>'+ arr[i].child[k].child[j].title +'</span></li>';
+                    }
+                    threestr +='</ul>';
+                }
+                twostr += threestr;
+                twostr +='</li>';
+            }
+            twostr += '</ul>';
+        }
+        str += twostr;
+        str+= '</li>';
+    }
+   oUl.innerHTML = str;
+
+    ////  以上为结构
+
+    var spans = document.querySelectorAll('span');
+
+    for(var i = 0;i<spans.length;i++){
+
+        spans[i].statr = false; // 给每一个span 加上一个 点击状态
+
+        spans[i].onclick = function () {
+
+
+            var next = this.nextElementSibling;    // 获取当前 下面的兄弟姐妹
+
+            var ppUl = this.parentNode.parentNode;  // 声明 当前的父级的父级
+
+            var uls = ppUl.querySelectorAll('ul');  //  找到 下面  所有的 ul
+
+            for( var i = 0; i < uls.length; i++ ){   //  先筛选一下所有的ul
+
+                if(uls[i] !== next){   //  判断一下 每个ul  有没有兄弟节点,
+                    uls[i].style.display = 'none';   // 给所有的ul 设置为 none
+                    uls[i].previousElementSibling.className = 'add'; //  所有ul 上一个兄弟节点 添加 add
+                }
+            }
+
+            if(next){  //  点击的时候判断一下 下面有没有 兄弟节点  有的话
+
+                if(this.className === 'add'){  //   在判断一下当前的样式是否为 add
+                    next.style.display = 'block';  //  如果是 给 当前下面的兄弟 显示
+                    this.className = 'line';   //给他的样式变为line
+                }else{
+                    next.style.display = 'none';  // 如果没有  给 当前下面的兄弟 隐藏
+                    this.className = 'add';   //  给当前的样式 改为 add
+                }
+            }
+
+        }
+
+    }
+
+</script>
+
+</body>
+
+</html>
