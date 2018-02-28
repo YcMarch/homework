@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style type="text/css">
+	#box{
+		width: 900px;
+		height: 500px;
+		background: url(images/fdj/bg.png) no-repeat;
+		position: relative;
+	}
+	#left{
+		width: 335px;
+		height: 188px;
+		position: absolute;
+		left: 148px;
+		top: 155px;
+		overflow: hidden;
+	}
+	#imgs1{
+		width: 100%;
+		height: 100%;
+	}
+	#right{
+		width: 200px;
+		height: 200px;
+		overflow: hidden;
+		position: absolute;
+		left: 580px;
+		top: 150px;
+		border-radius: 50%;
+		background: url(images/fdj/border.png) no-repeat;
+	}
+	#mask{
+		width: 50px;
+		height: 50px;
+		background: #deadbb;
+		border-radius: 50%;
+		opacity: .7;
+		position: absolute;
+		display: none;
+	}
+	#border{
+		width: 184px;
+		height: 184px;
+		position: absolute;
+		left: 7px;
+		top: 7px;
+		border-radius: 50%;
+		overflow: hidden;
+	}
+	#img2{
+		position: absolute;
+		top: 0;
+		left: 0;
+	}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<div id="left">
+			<img src="images/fdj/img.png" id="imgs1">
+			<div id="mask"></div>
+		</div>
+		<div id="right">
+			<div id="border">
+				<img src="images/fdj/img.png" id="img2">
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript">
+
+		window.onload = function () {
+
+            var left = document.querySelector('#left');
+            var mask = document.querySelector('#mask');
+            var border = document.querySelector('#border');
+            var img = border.querySelector('img');
+            var imgs1 = document.querySelector('#imgs1');
+
+            mask.style.width = border.offsetWidth*(imgs1.offsetWidth/img.offsetWidth) + 'px';
+            mask.style.height = border.offsetHeight*(imgs1.offsetHeight/img.offsetHeight) + 'px';
+
+            console.log(mask.style.width)
+
+
+
+            /*鼠标移入的时候*/
+
+            left.onmousemove = function (ev) {
+
+                var moveX = ev.clientX - left.getBoundingClientRect().left - mask.clientWidth/2;
+                var moveY = ev.clientY - left.getBoundingClientRect().top-mask.clientHeight/2;
+
+                if(moveX<0){
+                    moveX = 0;
+                }
+                if(moveY<0){
+                    moveY = 0;
+                }
+                if(moveX>left.clientWidth-mask.clientWidth){
+                    moveX = left.clientWidth-mask.clientWidth;
+                }
+                if(moveY>left.clientHeight-mask.clientHeight){
+                    moveY = left.clientHeight-mask.clientHeight;
+                }
+
+                mask.style.display = 'block';
+                mask.style.top = moveY + 'px';
+                mask.style.left = moveX + 'px';
+
+
+
+                var w = moveX/(left.offsetWidth-mask.offsetWidth);//计算移动的比例
+
+                //  算出X轴运动距离占 大盒子的比例
+
+                //console.log(moveX);    // 小块距离父级left的距离
+                //console.log(left.offsetWidth)  //  left 的宽度
+                //console.log(mask.offsetWidth)  //  mask 的宽度
+
+                var h = moveY/(left.offsetHeight-mask.offsetHeight);
+                //  小块 距离父级 top 的距离 / （left 的宽度 - mask 的宽度）
+                //计算大图的位置
+                // 大图top值的位置 = （图片的高度 - 图片盒子的高度） * 占比例
+                var img_top = (img.offsetHeight-border.offsetHeight)*h;
+                // 大图left值的位置 = （图片的宽度 - 图片盒子的宽度） * 占比例
+                var img_left = (img.offsetWidth-border.offsetWidth)*w;
+
+                //console.log(img.offsetHeight);
+                //设置大图的位置信息
+                img.style.top = -img_top + "px";
+                img.style.left = -img_left + "px";
+
+            }
+
+        }
+
+
+
+
+		
+	</script>
+</body>
+</html>
