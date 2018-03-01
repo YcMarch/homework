@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>仿select</title>
+    <style>
+
+        *{margin:0;padding:0;box-sizing: border-box;}
+        ul,ol{list-style: none;}
+        img{border: none;}
+        .box{width: 500px;height: 600px;margin: 0 auto;background: url(images/select/images/bg_01.jpg) no-repeat center;padding-top: 140px;}
+        .boxCon{width: 347px;margin: 0 auto;position: relative;}
+        .searchBox{height: 46px;background: #fff;border-radius: 25px;box-shadow: 0 0 3px #000;padding-top: 5px;padding-left: 5px;z-index: 2;position: relative;}
+        .searchText{width: 270px;height: 36px;line-height: 36px;background: #d9d9e2 url(images/select/images/soIco_04.png) no-repeat 10px center;border-radius: 25px;border:none;padding-left: 40px;overflow: hidden;}
+        .searchBtn{width: 60px;height: 36px;background: #fd635e;border: none;border-radius: 25px;vertical-align: middle;color: #fff;}
+        .conList{padding: 5px;background: #e4e4fe;padding-top: 55px;border-radius: 25px;position: absolute;top: 0;left: 0;width: 100%;display: none;}
+        .conList li{height: 30px;line-height: 30px;color: #000;font-size: 14px;margin-bottom: 7px;padding: 0 15px;border-radius: 25px;}
+        .conList li:hover,.conList .active{background: #fd635e;color: #fff;}
+    </style>
+</head>
+<body>
+
+<div class="box">
+    <div class="boxCon">
+        <!---  输入框  begin   -->
+        <div class="searchBox">
+            <input type="text" class="searchText">
+            <input type="button" class="searchBtn" value="GO">
+        </div>
+        <!---  输入框  end   -->
+
+        <!--   选项列表  begin  -->
+        <ul class="conList">
+            <li>第七个读者</li>
+            <li>心理罪 画像</li>
+            <li>心理罪 教化场</li>
+            <li>心里罪 城市之光</li>
+            <li>地球往事</li>
+        </ul>
+        <!--   选项列表  end  -->
+    </div>
+</div>
+
+<script>
+
+    /*
+    * 点击输入框的时候，让输入框背景变为白色,同时，让下拉列表显示
+    *
+    * 点击li 的时候， 把li的内容 赋值给 input的 value
+    *
+    * */
+
+    var searchText = document.querySelector('.searchText');
+    var conList = document.querySelector('.conList');
+
+    /*searchText.onclick = function () {
+        this.style.backgroundColor = '#fff';
+        this.style.backgroundImage = 'url(images/select/images/soclick_07.png)';
+        this.parentNode.nextElementSibling.style.display = 'block';
+    }*/
+
+    function clickFn(ev) {
+
+        this.style.backgroundColor = '#fff';
+        this.style.backgroundImage = 'url(images/select/images/soclick_07.png)';
+        conList.style.display = 'block';
+        ev.stopPropagation();  //  组织传播冒泡
+
+    }
+
+    //  点击搜索框的时候，添加事件函数 为clickFn
+    searchText.addEventListener('click',clickFn);
+
+    document.addEventListener('click',function () {
+        searchText.style.backgroundColor = '#d9d9e2';
+        searchText.style.backgroundImage = 'url(images/select/images/soIco_04.png)';
+        conList.style.display = 'none';
+    });
+
+    conList.addEventListener('click',function (ev) {
+
+        var lis = conList.querySelectorAll('li');
+
+        if(ev.target.nodeName === 'LI'){ //  判断目标源的标签名 为 LI的时候
+            searchText.value = ev.target.innerHTML;   // 就把目标源的内容 给到 输入框内
+            for(var i =0;i<lis.length;i++){
+
+                lis[i].className = '';   //把所有的的li上的样式 清空
+
+            }
+            ev.target.className = 'active';  // 给当前目标源 添加样式
+        }
+        searchText.style.backgroundColor = '#d9d9e2';
+        searchText.style.backgroundImage = 'url(images/select/images/soIco_04.png)';
+
+    })
+
+</script>
+
+</body>
+</html>
