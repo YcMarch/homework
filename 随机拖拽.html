@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+    body {
+        margin: 0;
+    }
+
+    #wrap {
+        width: 1200px;
+        height: 670px;
+        background: url(images/xjtz/bg.jpg) no-repeat 0 -50px;
+        margin: 0 auto;
+        position: relative;
+    }
+
+    #box {
+        width: 639px;
+        height: 380px;
+        position: absolute;
+        left: 281px;
+        top: 164px;
+    }
+
+    #btn {
+        width: 96px;
+        height: 38px;
+        border: 2px solid #fff;
+        border-radius: 4px;
+        font-size: 18px;
+        line-height: 38px;
+        text-align: center;
+        color: #fff;
+        position: absolute;
+        top: 163px;
+        left: 26px;
+    }
+
+    #btn:hover {
+        color: #594da7;
+        background: #fff;
+    }
+
+    #picBox {
+        width: 460px;
+        height: 340px;
+        position: absolute;
+        top: 20px;
+        left: 159px;
+    }
+
+    #picBox div {
+        width: 100px;
+        height: 100px;
+        position: relative;
+        float: left;
+        margin: 7px;
+    }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <div id="box">
+            <span id="btn">随机</span>
+            <div id="picBox">
+                <div style="background: url(images/xjtz/rocket.png);"></div>
+                <div style="background: url(images/xjtz/sport.png);"></div>
+                <div style="background: url(images/xjtz/music.png);"></div>
+                <div style="background: url(images/xjtz/play.png);"></div>
+                <div style="background: url(images/xjtz/travel.png);"></div>
+                <div style="background: url(images/xjtz/sun.png);"></div>
+                <div style="background: url(images/xjtz/snow.png);"></div>
+                <div style="background: url(images/xjtz/coffee.png);"></div>
+                <div style="background: url(images/xjtz/buy.png);"></div>
+                <div style="background: url(images/xjtz/ktv.png);"></div>
+                <div style="background: url(images/xjtz/game.png);"></div>
+                <div style="background: url(images/xjtz/rain.png);"></div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var picBox = document.querySelector('#picBox');
+        var picBoxs = picBox.querySelectorAll('div');
+        var btn = document.querySelector('#btn');
+
+        //  先转成定位的
+        var arr = [];
+        for(var i = 0 ;i<picBoxs.length;i++){
+            arr.push([
+                picBoxs[i].offsetLeft, // 每一个偏移的left值
+                picBoxs[i].offsetTop// 每一个偏移的值
+            ])
+            //执行一下函数，将每一个div传进去
+            divMove(picBoxs[i])
+        }
+        //  给每一个元素设置
+        for (var i=0; i<picBoxs.length; i++) {
+            picBoxs[i].index = i;  // 给每一个元素上 添加一个下标
+            picBoxs[i].style.position = 'absolute'; //  给每一个元素定义样式
+            picBoxs[i].style.margin = 0;//  给每一个元素定义样式
+            picBoxs[i].style.left = arr[i][0] + 'px';//  给每一个元素定义样式
+            picBoxs[i].style.top = arr[i][1] + 'px';//  给每一个元素定义样式
+        }
+        btn.onclick = function () {
+            arr.sort(function (){  // 对数组进行排序
+                return Math.random() - 0.5;  // return 出一个随机的数
+            });
+            for(var i = 0;i<picBoxs.length;i++){
+                picBoxs[i].style.transition = '200ms';
+                picBoxs[i].style.left = arr[i][0] + 'px';  //设置元素 为 数组中存的值
+                picBoxs[i].style.top = arr[i][1] + 'px';//设置元素 为 数组中存的值
+            }
+        };
+        ////////  推拽
+        function divMove(el){ //  el  代表的就是每一个div
+            el.onmousedown = function(ev){ //  down下对应的div的时候
+                var downDivTop = el.offsetTop;    // 找到这个div 距离顶部的距离
+                var downDivLeft = el.offsetLeft;  //  找到这个元素div 距离左侧的距离
+                var maxX = picBox.clientWidth - el.offsetWidth;  // 找到整个容易内部的宽度 -  这个这个元素的宽度 =  这个元素最大活动宽度
+                var maxY = picBox.clientHeight - el.offsetHeight;// 找到整个容易内部的高度 -  这个这个元素的高度 =  这个元素最大活动高度
+                var disX = ev.clientX - el.offsetLeft; // 鼠标按下左边左边 -  点击这个元素距离左侧的距离  = 中间那段距离
+                var disY = ev.clientY - el.offsetTop;// 鼠标按下左边左边 -  点击这个元素距离左侧的距离  = 中间那段距离
+                var nearDiv = null;
+                el.style.zIndex = 100000000;   //  元素的层级
+                document.onmousemove = function(ev){
+
+                    var arrBox = []; //  生成一个新数组
+
+                    var t1 = ev.clientY - disY;  // 鼠标拖动的 Y轴坐标  -  中间距离顶部中间那段距离 = 元素距离顶部的距离
+
+                    var t2 = ev.clientX - disX;  // 鼠标拖动的X轴 - 中间距离距离元素左侧的距离 = 元素距离左侧的距离
+
+                    if(t1 < 0){  // 元素顶部距离 小于 0 的时候， 元素就设置为 0
+                        t1 = 0
+                    }else if(t1 > maxY){  //  元素大于了 可活动的 高度
+                        t1 = maxY   // 就设施为最大的高度
+                    }
+
+                    if(t2 < 0){  //  与上面同理
+                        t2 = 0
+                    }else if(t2 > maxX){
+                        t2 = maxX
+                    }
+                    el.style.top = t1 + 'px';  // 设置元素的top 值 就等于 上面设定好的值
+                    el.style.left = t2 + 'px';
+                    //找出碰撞元素并存入arrBox
+                    for(var i = 0;i < picBoxs.length;i++){
+                        if(i !== el.index && isTouch(el,picBoxs[i])){  // 如果 i  不等于 元素对应的下标
+                            arrBox.push(picBoxs[i])  // 就把这个元素，插入到这个数组中
+                        }
+                    }
+                    if(arrBox.length > 0){  //  如果碰撞数组的长度  >  0
+                        var max = Infinity;  // 设置一个最大值
+                        for( var j = 0; j < arrBox.length; j++){
+
+                            var centerX = getRect(arrBox[j]).left + arrBox[j].offsetWidth/2;  // 该元素身上的left的值 + 元素宽度/2
+                            var centerY = getRect(arrBox[j]).top + arrBox[j].offsetHeight/2; //  该元素身上的 top值 + 元素高度/2
+                            var downCenterX = getRect(el).left + el.offsetWidth/2;  // 之前div的left  + 之前div.宽度/2
+                            var downCenterY = getRect(el).top + el.offsetHeight/2; // 之前div的top  + 之前div.高度/2
+
+                            var z = Math.pow(centerX - downCenterX,2) + Math.pow(centerY - downCenterY,2);
+                            //  声明一个 z = x 平方 + y 的平方
+                            if(z < max){
+                                max = z;
+                                nearDiv = arrBox[j];
+                            }
+                        }
+                    }
+                };
+                document.onmouseup = function(){
+                    el.style.zIndex = 0;
+                    document.onmousemove = document.onmouseup = null;
+
+                    if(nearDiv){
+                        arr[el.index].top = nearDiv.offsetTop;
+                        arr[el.index].left = nearDiv.offsetLeft;
+                        arr[nearDiv.index].top = downDivTop;
+                        arr[nearDiv.index].left = downDivLeft;
+                    }
+
+                    for(var i = 0;i < arr.length;i++){
+                        picBoxs[i].style.transition = '200ms';
+                        picBoxs[i].style.top = arr[i].top + 'px';
+                        picBoxs[i].style.left = arr[i].left + 'px';
+                    }
+                };
+                //取消浏览器默认行为
+                ev.preventDefault()
+            }
+        }
+
+        //  碰撞函数
+        function getRect(element){
+            return element.getBoundingClientRect();
+        }
+        function isTouch(box1,box2){
+            var getBox1Rect = getRect(box1);
+            var getBox2Rect = getRect(box2);
+            if(
+                getBox1Rect.right < getBox2Rect.left ||
+                getBox1Rect.bottom < getBox2Rect.top ||
+                getBox1Rect.left > getBox2Rect.right ||
+                getBox1Rect.top > getBox2Rect.bottom
+            ){
+                return false
+            }else{
+                return true;
+            }
+        }
+    </script>
+</body>
+
+</html>
